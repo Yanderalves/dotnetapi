@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AmigoSecreto.Migrations
 {
     [DbContext(typeof(AmigoSecretoContext))]
-    [Migration("20241221013648_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241224180627_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -9,12 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AmigoSecretoContext>
-(opt =>
-    opt.UseNpgsql("Server=192.168.0.44;Port=5433;Database=postgres;User Id=postgres;Password=postgres;"));
+builder.Services.AddDbContext<AmigoSecretoContext>(opt => opt.UseNpgsql());
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

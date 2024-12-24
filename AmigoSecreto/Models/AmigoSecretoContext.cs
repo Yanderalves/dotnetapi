@@ -29,6 +29,6 @@ public class AmigoSecretoContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        optionsBuilder.UseNpgsql("Server=192.168.0.44;Port=5433;Database=postgres;User Id=postgres;Password=postgres;");
+        optionsBuilder.UseNpgsql("Server=192.168.0.44;Port=5432;Database=postgres;User Id=postgres;Password=postgres;");
 
 }

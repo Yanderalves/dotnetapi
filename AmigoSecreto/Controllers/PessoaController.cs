@@ -60,7 +60,12 @@ namespace AmigoSecreto.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
+
+                var person = await _context.Pessoas.FirstOrDefaultAsync(item => item.Email == pessoa.Email);
                 
+                if(person is not null)
+                    return Conflict(new ApiResponse {success = false, Message = "Já existe um usuário cadastrado com este email"});
+
                 await _context.Pessoas.AddAsync(pessoa);
                 await _context.SaveChangesAsync();
                 
@@ -68,7 +73,37 @@ namespace AmigoSecreto.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, "Ocorreu erro ao tentar salvar o item");
+                return StatusCode(500, new ApiResponse {success = false, Message = "Ocorreu erro ao tentar salvar o item"});
+            }
+            
+        }
+
+        [HttpDelete]
+        [EndpointSummary("Deletar pessoa")]
+        public async Task<IActionResult> DeletePessoa(string email)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                
+                var pessoa = await _context.Pessoas.FirstOrDefaultAsync(item => item.Email == email);
+
+                if (pessoa is null)
+                    return NotFound(new ApiResponse
+                    {
+                        success = false,
+                        Message = "Item não encontrado."
+                    });
+                
+                _context.Pessoas.Remove(pessoa);
+                _context.SaveChangesAsync();
+                return NoContent();
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new ApiResponse {success = false, Message = "Ocorreu erro interno."});
             }
             
         }
